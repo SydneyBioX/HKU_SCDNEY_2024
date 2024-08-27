@@ -37,7 +37,7 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE,  message=FALSE, warning= FALSE)
 
 library(SingleCellExperiment)
-load("../data/breastCancer.RData")
+load("../../data/breastCancer.RData")
 data_sce = IMC
 ```
 
@@ -632,7 +632,7 @@ Assuming you have already generated a collection of molecular representation for
 
 ```{r eval=params$evalc}
 # Upload pre-generated RDS file
-scfeatures_result <- readRDS("../data/scfeatures_result.RDS")
+scfeatures_result <- readRDS("../../data/scfeatures_result.RDS")
 
 # What are the features and the dimensions of features matrices that we have generated?
 lapply(scfeatures_result, dim)
@@ -785,7 +785,7 @@ classifyr_result <- crossValidate(clinicalAndOmics, c("timeRFS", "eventRFS"),
 
 
 ```{r eval=params$evalc}
-classifyr_result <- readRDS("../data/classifyr_result_IMC.rds")
+classifyr_result <- readRDS("../../data/classifyr_result_IMC.rds")
 ```
 
 
@@ -799,7 +799,7 @@ survForestCV <- crossValidate(clinicalAndOmics, outcome, nFeatures = nFeatures,
 ```
 
 ```{r eval=params$evalc}
-survForestCV <- readRDS("../data/survForestCV.RDS")
+survForestCV <- readRDS("../../data/survForestCV.RDS")
 ```
 
 
