@@ -265,7 +265,7 @@ Structure of the 3-hour workshop:
 | Part 6: Cell segmentation with BIDCell      | 20m  |
 | Concluding remarks                          |      |
 
-# Part 2: Exploring spatial data 
+# Part 2: Exploring spatial data {.tabset}
 
 ## Data and background 
 A subset of the widely-known METABRIC breast cancer cohort has recently been analyzed using imaging mass cytometry: [Imaging Mass Cytometry and Multiplatform Genomics Define the Phenogenomic Landscape of Breast Cancer](https://www.nature.com/articles/s43018-020-0026-6). The question we are asking is: can their risk of recurrence be accurately estimated and therefore inform how aggressively they need to be treated? The other component of the analysis is patient clinical data, which has been sourced from Supplementary Table 5 of [Dynamics of Breast-cancer Relapse Reveal Late-recurring ER-positive Genomic Subgroups](https://www.nature.com/articles/s41586-019-1007-8). 
@@ -535,7 +535,7 @@ ggplot(df, aes(x = Sample, y = Frequency)) + geom_bar(stat = "identity") + theme
 Q6: Are there any samples or cell-types you would like to remove from the data?
 </div>
 
-## 3.1 How to create molecular representations of individuals?  
+## 3.1 How to create molecular representations of individuals? {.tabset}
 There are different ways you can use `scFeatures` to generate molecular representations for individuals and it requires the following information for spatial data. 
 
 - data,  
@@ -625,7 +625,7 @@ scfeatures_result <- scFeatures(IMCmatrix,
                                 ncores = 32)
 ```
 
-## 3.2: What can we learn from the outputs from scFeatures?  
+## 3.2: What can we learn from the outputs from scFeatures? {.tabset}
 ### New features
 Assuming you have already generated a collection of molecular representation for individuals, please load the prepared RDS file `scfeatures_result.RDS`. Again, you can remind yourself that all generated feature types are stored in a matrix of `samples x features`. 
 
@@ -699,7 +699,7 @@ Q4: Which figure do you prefer? The volcano plot or the dotplot?
 </div>
 
 
-### Category-specific features   
+### Category-specific features {.tabset} 
 Can we identify the feature of interest among each type of feature category? In order to further develop our understanding of our data, it is important to bear in mind that the outcomes derived from `scFeatures` combine several association studies. Hence, it is necessary to examine every separate feature category as an individual unit of study. This section presents a graphic representation showing how to visualise the distribution of features across individuals. The following code has been developed to identify and retrieve all samples that have been associated to both good and poor prognosis. This particular step is necessary in this setting as our focus is limited to two specific categories of individuals rather than including all samples.
 
 ```
@@ -754,7 +754,7 @@ for (i in 1:13){
 run_association_study_report(scfeatures_result_new, output_folder )
 ```
 
-# Part 4: Disease classification with ClassifyR 
+# Part 4: Disease classification with ClassifyR {.tabset}
 Recurrence risk estimation is a fundamental concern in medical research, particularly in the context of patient survival analysis. In this section, we will estimate recurrence risk using the molecular representation of individuals generated from `scFeatures` to build a survival model. We will use classifyR to build the survival model. The patient outcome is time-to-event, so, by default, ClassifyR will use Cox proportional hazards ranking to choose a set of features and also Cox proportional hazards to predict risk scores. We will also demonstrate other available models in `ClassifyR`. 
 
 
