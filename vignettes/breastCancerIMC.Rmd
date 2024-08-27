@@ -381,7 +381,7 @@ ggplot(one_sample, aes(x = Location_Center_X, y = Location_Center_Y, colour = de
 
 ```
 
-## Cellular neighbourhoods
+## Cellular neighbourhoods {.tabset}
 
 Spatial data allow for the identification of a variety of characteristics including distinct cell-types within an image, providing an overview of the tissue environment. This allows scientists to explore the cellular architecture and environment and its association with phenotype information (e.g meta-data). For our data story, we are interested in whether the individuals have a good or poor outcome. The outcome is often called a 'prognosis' and a good outcome is sometimes called 'favourable'. In this section, we examine graphically how cell-type co-localisation varies across spatial regions and how is such information associated with individual survival outcome. 
 
