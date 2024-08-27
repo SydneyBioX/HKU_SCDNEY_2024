@@ -282,7 +282,7 @@ and `r ncol(assay(data_sce))` cells.
 
 ## Covariates 
 ```{r eval=params$evalc}
-DT::datatable(data.frame(colData(data_sce)))
+ data.frame(colData(data_sce)[1:5, ])
 ```
 
 ## Summary  
