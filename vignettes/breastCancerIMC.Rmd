@@ -777,14 +777,14 @@ nFeatures <- append(list(clinical = 1:3), lapply(scfeatures_result, function(met
 clinicalAndOmics <- append(list(clinical = clinical), scfeatures_result)
 
 ### generate classfyr result 
-classifyr_result <- crossValidate(clinicalAndOmics, c("timeRFS", "eventRFS"),
+classifyr_result_IMC <- crossValidate(clinicalAndOmics, c("timeRFS", "eventRFS"),
                     extraParams = list(prepare = list(useFeatures = list(clinical = usefulFeatures))),
                     nFeatures = nFeatures, nFolds = 5, nRepeats = 5, nCores = 5)
 ```
 
 
 ```{r eval=params$evalc}
-classifyr_result <- readRDS("../../data/classifyr_result_IMC.rds")
+classifyr_result_IMC <- readRDS("../../data/classifyr_result_IMC.rds")
 ```
 
 
@@ -811,7 +811,7 @@ To examine the distribution of prognostic performance, use `performancePlot`. Cu
 tilt <- theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 
 ## Putting two sets of cross-validation results together
-multiresults <- append(classifyr_result, survForestCV)
+multiresults <- append(classifyr_result_IMC, survForestCV)
 ordering <- c("clinical", names(scfeatures_result))
 performancePlot(multiresults,
                 characteristicsList = list(x = "Assay Name", 
@@ -826,7 +826,7 @@ Note how the resultant plot is a `ggplot2` object and can be further modified. T
 selectionPlot(multiresults,
                 characteristicsList = list(x = "Assay Name", row = "Classifier Name"),
                 orderingList = list("Assay Name" = ordering)) + tilt
-distribution(classifyr_result[[1]], plot = FALSE)
+distribution(classifyr_result_IMC[[1]], plot = FALSE)
 ```
 
 A few samples are predicted better by some metafeatures than others.
@@ -850,7 +850,7 @@ Using `samplesMetricMap` compare the per-sample C-index for Cox models for all k
 
 ```{r eval=params$evalc}
 library(grid)
-samplesMetricMap(classifyr_result)
+samplesMetricMap(classifyr_result_IMC)
 ```
 
 <div class="aimbox"> 
