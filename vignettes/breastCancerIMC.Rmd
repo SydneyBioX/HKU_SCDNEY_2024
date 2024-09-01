@@ -257,13 +257,13 @@ Structure of the 3-hour workshop:
 | Activity                                    | Time |
 |---------------------------------------------|------|
 | Part 1: Introduction                        | 20m  |
-| Part 2: Exploring spatial data              | 20m  |
+| Part 2: Exploring spatial data              | 30m  |
 | Part 3: Feature engineering with scFeatures | 30m  |
 | Break                                       | 15m  |
-| Part 4: Survival analysis with ClassifyR    | 15m  |
-| Part 5. Identify cohort heterogeneity       | 15m  |
+| Part 4: Survival analysis with ClassifyR    | 20m  |
+| Part 5. Identify cohort heterogeneity       | 20m  |
 | Part 6: Cell segmentation with BIDCell      | 20m  |
-| Concluding remarks                          |      |
+| Concluding remarks                          | 10m  |
 
 # Part 2: Exploring spatial data {.tabset}
 
@@ -286,7 +286,7 @@ and `r ncol(assay(data_sce))` cells.
 ```
 
 ## Summary  
-At the start of any analysis pipeline, it is often good to explore the data to get a sense of the structure and its complexity  We usually do this by exploring the distribution of the outcomes and variables within the meta-data.  Here, we use cross-tabulation to examine the following variables:
+At the start of any analysis pipeline, it is often good to explore the data to get a sense of the structure and its complexity. We usually do this by exploring the distribution of the outcomes and variables within the meta-data.  Here, we use cross-tabulation to examine the following variables:
 
 - Surgery vs death
 - ER status
@@ -354,13 +354,13 @@ ggarrange(plotlist = list(a,b))
 
 What can we learn from these illustrations? Is there anything interesting in the plot? Questions to consider include:
 
-- Q1: Does each cell-type cluster together?
-- Q2: When there is a large number of categories, are dimensionality reduction plots interpretable or misleading due to overplotting?
+- Q&A 1: Does each cell-type cluster together?
+- Q&A 2: When there is a large number of categories, are dimensionality reduction plots interpretable or misleading due to overplotting?
 
 </div>
 
 ## Spatial structure
-The advantage with spatial omics is that we can examine the organisation of the cell-types as it occurs on the tissue slide. Here, we visualise one of the slides from a patient. As an optional exercise, you can: 
+The advantage with spatial omics is that we can examine the organisation of the cell-types as it occurs on the tissue slide. Here, we visualise one of the slides from a patient. As an optional exercise, you can:  
 - permute the cell-type label.   
 - permute the spatial coordinate.           
 to give a sense of what is random ordering.       
@@ -410,7 +410,7 @@ data_sce  <- lisaClust(
 ```
 
 We have use the `lisaClust` function in the previous subsection to cluster cells into five different spatial regions.  Next, as a case study, we will compare individuals with good or poor prognosis and examine graphically, if any regions appear to be different between good or poor prognosis. We define:  
-- Good prognosis as individuals with > 10 years recurrence-free survival and 
+- Good prognosis as individuals with > 10 years recurrence-free survival and   
 - Poor prognosis as individuals with < 5 years recurrence-free survival. 
 
 using the code below and store the information under `clinical$survivalgroup`.  The recurrence free survival (RFS) is provided in the variable `timeRFS`
@@ -467,7 +467,7 @@ draw_dotplot(data_sce,
 <i class="far fa-chart-bar fa-stack-1x fa-inverse"></i>
 </span> <strong>Interactive Q&A:</strong>   
  
-Q4: Which regions appear to be different between poor prognosis (short-term survival) and good prognosis (long-term survival) individuals?        
+Q&A 3: Which regions appear to be different between poor prognosis (short-term survival) and good prognosis (long-term survival) individuals?        
 
 </div>
 
@@ -496,7 +496,7 @@ iv) Cell-type interaction scores
 v) Aggregated gene expressions
 vi) Spatial metrics: Nearest neighbour's correlation, L statistics, and Moran's I
 
-The different types of features constructed enable a more comprehensive multi-view understanding of each individual. By default, the function will generate a total of 13 different types of features and are stored as 13 `samples x features` matrices, one for each feature. 
+The different types of features constructed enable a more comprehensive multi-view understanding of each individual. By default, the function will generate a total of 13 different types of features and are stored as 13 `samples x features` matrices, one for each feature type. 
 
 In additional to the spatial metrics, we can also consider region information as an additional layer of information. Thus, the following code aims to create cell-type specific features for each region. We use the function "paste0" to construct **region-specific sub cell-types** and name it as `celltype` in the R object `data_sce`. For simplicity, in this workshop, the variable `celltype` in the R object `data_sce` refers to region-specific sub-cell-types.
 
@@ -532,7 +532,7 @@ ggplot(df, aes(x = Sample, y = Frequency)) + geom_bar(stat = "identity") + theme
 <span class="far fa-comment fa-stack-1x fa-inverse"></span>
 </span> <strong> Discussion:</strong>
 
-Q6: Are there any samples or cell-types you would like to remove from the data?
+Q&A 4: Are there any samples or cell-types you would like to remove from the data?
 </div>
 
 ## 3.1 How to create molecular representations of individuals? {.tabset}
@@ -612,7 +612,7 @@ plot_barplot(feature ) + ggtitle("Proportion raw feature") + labs(y = "proportio
 
 ### scFeatures code 
 The code below enable us to generate all feature types for all cell-types in a line. Due to limitations with today's computational capacity, 
-** Please DO NOT run it in today's workshop, it will crash your system**. 
+**Please DO NOT run it in today's workshop, it will crash your system**. 
 
 ```
 # here, we specify that this is a spatial proteomics data
@@ -640,7 +640,7 @@ lapply(scfeatures_result, dim)
 
 ### Association study 
 Can we identify "differential expression" for a feature of interest?
-The R object `scfeatures_result` contains a variety of features. A important question focuses on the identification of features that reflect an association with the prognostic outcome, specifically distinguishing between good and poor outcomes.  The code provided below demonstrates the use of the `limma()` function to fit a linear model for the purpose of analysing gene_mean_celltype as an illustration feature.  The feature type known as `gene_mean_celltype` represents the mean protein expression for each sub-cell-type specific to a spatial region. It is a matrix consisting of 77 individuals and 4180 features. It is important to acknowledge that within the context of our IMC data, the term "gene" is used to refer to "protein". 
+The R object `scfeatures_result` contains a variety of features. A important question focuses on the identification of features that reflect an association with the prognostic outcome, specifically distinguishing between good and poor outcomes.  The code provided below demonstrates the use of the `limma()` function to fit a linear model for the purpose of analysing `gene_mean_celltype` as an illustration feature type.  The feature type known as `gene_mean_celltype` represents the mean protein expression for each sub-cell-type specific to a spatial region. It is a matrix consisting of 77 individuals and 4180 features. It is important to acknowledge that within the context of our IMC data, the term "gene" is used to refer to "protein". 
 
 ```{r eval=params$evalc, fig.height=5, fig.width=7}
 # Extract cell-type specific gene expression for all regions. 
@@ -694,7 +694,7 @@ ggplot( tT , aes( y = reorder(gene, logFC) , x = logFC  ) )+
 <span class="far fa-comment fa-stack-1x fa-inverse"></span>
 </span> <strong>Interactive Q&A:</strong>
 
-Q4: Which figure do you prefer? The volcano plot or the dotplot? 
+Q&A 5: Which figure do you prefer? The volcano plot or the dotplot? 
 
 </div>
 
@@ -734,9 +734,9 @@ To accommodate for easier interpretation of the features, `scFeatures` contains 
 
 In the code below we perform the following tasks:
 
-- 1. Specify a folder to store the html report.  Using the function `getwd()` we specify that we will store it in the current working directory. 
-- 2. A small `for loop` is created to select all the samples associated with good and poor prognosis and generate a new scfeatures_result. This step is only necessary if the comparison of interest is a subset of all your data. 
-- 3. Run the function `run_association_study_report()`
+ 1. Specify a folder to store the html report.  Using the function `getwd()` we specify that we will store it in the current working directory. 
+ 2. A small `for loop` is created to select all the samples associated with good and poor prognosis and generate a new scfeatures_result. This step is only necessary if the comparison of interest is a subset of all your data. 
+ 3. Run the function `run_association_study_report()`
 
 ```{r include=TRUE, eval=FALSE}
 ## Step 1 
@@ -839,7 +839,7 @@ The per-sample C-index is a metric unique to ClassifyR. Models and feature selec
 <i class="far fa-chart-bar fa-stack-1x fa-inverse"></i>
 </span> <strong>Interactive Q&A:</strong>   
 
-Q7: Is the highest predictive performance the only way to choose the best model or can other models be better for other reasons?
+Q&A 6: Is the highest predictive performance the only way to choose the best model or can other models be better for other reasons?
 </div>
 
 
@@ -859,7 +859,7 @@ samplesMetricMap(classifyr_result_IMC)
 <i class="far fa-chart-bar fa-stack-1x fa-inverse"></i>
 </span> <strong>Interactive Q&A:</strong>   
 
-Q8: Are spatial features important for predicting recurrence? Does it hold for all individuals?
+Q&A 7: Are spatial features important for predicting recurrence? Does it hold for all individuals?
 </div>
 
 

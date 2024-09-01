@@ -335,7 +335,7 @@ analytical skills by reviewing the output we provide in this file.
 </tr>
 <tr class="even">
 <td>Part 2: Exploring spatial data</td>
-<td>20m</td>
+<td>30m</td>
 </tr>
 <tr class="odd">
 <td>Part 3: Feature engineering with scFeatures</td>
@@ -347,11 +347,11 @@ analytical skills by reviewing the output we provide in this file.
 </tr>
 <tr class="odd">
 <td>Part 4: Survival analysis with ClassifyR</td>
-<td>15m</td>
+<td>20m</td>
 </tr>
 <tr class="even">
 <td>Part 5. Identify cohort heterogeneity</td>
-<td>15m</td>
+<td>20m</td>
 </tr>
 <tr class="odd">
 <td>Part 6: Cell segmentation with BIDCell</td>
@@ -359,7 +359,7 @@ analytical skills by reviewing the output we provide in this file.
 </tr>
 <tr class="even">
 <td>Concluding remarks</td>
-<td></td>
+<td>10m</td>
 </tr>
 </tbody>
 </table>
@@ -433,7 +433,7 @@ Subgroups</a>.</p>
 <h3 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h3>
 <p>At the start of any analysis pipeline, it is often good to explore
-the data to get a sense of the structure and its complexity We usually
+the data to get a sense of the structure and its complexity. We usually
 do this by exploring the distribution of the outcomes and variables
 within the meta-data. Here, we use cross-tabulation to examine the
 following variables:</p>
@@ -520,9 +520,10 @@ selected individuals.</p>
 <p>What can we learn from these illustrations? Is there anything
 interesting in the plot? Questions to consider include:</p>
 <ul>
-<li>Q1: Does each cell-type cluster together?</li>
-<li>Q2: When there is a large number of categories, are dimensionality
-reduction plots interpretable or misleading due to overplotting?</li>
+<li>Q&amp;A 1: Does each cell-type cluster together?</li>
+<li>Q&amp;A 2: When there is a large number of categories, are
+dimensionality reduction plots interpretable or misleading due to
+overplotting?</li>
 </ul>
 </div>
 </div>
@@ -532,7 +533,8 @@ reduction plots interpretable or misleading due to overplotting?</li>
 <p>The advantage with spatial omics is that we can examine the
 organisation of the cell-types as it occurs on the tissue slide. Here,
 we visualise one of the slides from a patient. As an optional exercise,
-you can: - permute the cell-type label.<br>
+you can:<br>
+- permute the cell-type label.<br>
 - permute the spatial coordinate.<br>
 to give a sense of what is random ordering.</p>
 <p>We select a particular patient “MB-0002” and visualise its spatial
@@ -592,8 +594,9 @@ as a case study, we will compare individuals with good or poor prognosis
 and examine graphically, if any regions appear to be different between
 good or poor prognosis. We define:<br>
 - Good prognosis as individuals with &gt; 10 years recurrence-free
-survival and - Poor prognosis as individuals with &lt; 5 years
-recurrence-free survival.</p>
+survival and<br>
+- Poor prognosis as individuals with &lt; 5 years recurrence-free
+survival.</p>
 <p>using the code below and store the information under
 <code>clinical$survivalgroup</code>. The recurrence free survival (RFS)
 is provided in the variable <code>timeRFS</code></p>
@@ -660,8 +663,8 @@ prognostic outcomes.</p>
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="far fa-chart-bar fa-stack-1x fa-inverse"></i> </span>
 <strong>Interactive Q&amp;A:</strong></p>
-<p>Q4: Which regions appear to be different between poor prognosis
-(short-term survival) and good prognosis (long-term survival)
+<p>Q&amp;A 3: Which regions appear to be different between poor
+prognosis (short-term survival) and good prognosis (long-term survival)
 individuals?</p>
 </div>
 </div>
@@ -706,7 +709,7 @@ Moran’s I</li>
 comprehensive multi-view understanding of each individual. By default,
 the function will generate a total of 13 different types of features and
 are stored as 13 <code>samples x features</code> matrices, one for each
-feature.</p>
+feature type.</p>
 <p>In additional to the spatial metrics, we can also consider region
 information as an additional layer of information. Thus, the following
 code aims to create cell-type specific features for each region. We use
@@ -744,8 +747,8 @@ region-specific sub-cell-types.</p>
 <p><span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i> <span class="far fa-comment fa-stack-1x fa-inverse"></span> </span> <strong>
 Discussion:</strong></p>
-<p>Q6: Are there any samples or cell-types you would like to remove from
-the data?</p>
+<p>Q&amp;A 4: Are there any samples or cell-types you would like to
+remove from the data?</p>
 </div>
 <div class="section level3">
 <h3 class="tabset" id="how-to-create-molecular-representations-of-individuals">3.1 How to create molecular representations of
@@ -853,8 +856,8 @@ the region-specific sub-cell-types.</p>
 </h4>
 <p>The code below enable us to generate all feature types for all
 cell-types in a line. Due to limitations with today’s computational
-capacity, ** Please DO NOT run it in today’s workshop, it will crash
-your system**.</p>
+capacity, <strong>Please DO NOT run it in today’s workshop, it will
+crash your system</strong>.</p>
 <pre><code><span><span class="co"># here, we specify that this is a spatial proteomics data</span></span>
 <span><span class="co"># scFeatures support parallel computation to speed up the process </span></span>
 <span><span class="va">scfeatures_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://sydneybiox.github.io/scFeatures/reference/scFeatures.html" class="external-link">scFeatures</a></span><span class="op">(</span><span class="va">IMCmatrix</span>, </span>
@@ -931,13 +934,13 @@ features. A important question focuses on the identification of features
 that reflect an association with the prognostic outcome, specifically
 distinguishing between good and poor outcomes. The code provided below
 demonstrates the use of the <code>limma()</code> function to fit a
-linear model for the purpose of analysing gene_mean_celltype as an
-illustration feature. The feature type known as
-<code>gene_mean_celltype</code> represents the mean protein expression
-for each sub-cell-type specific to a spatial region. It is a matrix
-consisting of 77 individuals and 4180 features. It is important to
-acknowledge that within the context of our IMC data, the term “gene” is
-used to refer to “protein”.</p>
+linear model for the purpose of analysing
+<code>gene_mean_celltype</code> as an illustration feature type. The
+feature type known as <code>gene_mean_celltype</code> represents the
+mean protein expression for each sub-cell-type specific to a spatial
+region. It is a matrix consisting of 77 individuals and 4180 features.
+It is important to acknowledge that within the context of our IMC data,
+the term “gene” is used to refer to “protein”.</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract cell-type specific gene expression for all regions. </span></span>
 <span><span class="va">gene_mean_celltype</span> <span class="op">&lt;-</span> <span class="va">scfeatures_result</span><span class="op">$</span><span class="va">gene_mean_celltype</span></span>
@@ -991,7 +994,8 @@ fold-change (x-axis).</p>
 <p><span class="fa-stack fa-lg">
 <i class="fa fa-circle fa-stack-2x"></i> <span class="far fa-comment fa-stack-1x fa-inverse"></span> </span>
 <strong>Interactive Q&amp;A:</strong></p>
-<p>Q4: Which figure do you prefer? The volcano plot or the dotplot?</p>
+<p>Q&amp;A 5: Which figure do you prefer? The volcano plot or the
+dotplot?</p>
 </div>
 </div>
 <div class="section level4">
@@ -1051,23 +1055,17 @@ code. This should be used with caution as depending on the number of
 cell-types considered, some of the automatically-generated graphics may
 not be the most efficient way for interpretation.</p>
 <p>In the code below we perform the following tasks:</p>
-<ul>
-<li><ol style="list-style-type: decimal">
+<ol style="list-style-type: decimal">
 <li>Specify a folder to store the html report. Using the function
 <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code> we specify that we will store it in the current
 working directory.</li>
-</ol></li>
-<li><ol start="2" style="list-style-type: decimal">
 <li>A small <code>for loop</code> is created to select all the samples
 associated with good and poor prognosis and generate a new
 scfeatures_result. This step is only necessary if the comparison of
 interest is a subset of all your data.</li>
-</ol></li>
-<li><ol start="3" style="list-style-type: decimal">
 <li>Run the function <code><a href="https://sydneybiox.github.io/scFeatures/reference/run_association_study_report.html" class="external-link">run_association_study_report()</a></code>
 </li>
-</ol></li>
-</ul>
+</ol>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Step 1 </span></span>
 <span><span class="va">output_folder</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1189,8 +1187,9 @@ feature selection approaches may be seen in the vignette or listed by
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="far fa-chart-bar fa-stack-1x fa-inverse"></i> </span>
 <strong>Interactive Q&amp;A:</strong></p>
-<p>Q7: Is the highest predictive performance the only way to choose the
-best model or can other models be better for other reasons?</p>
+<p>Q&amp;A 6: Is the highest predictive performance the only way to
+choose the best model or can other models be better for other
+reasons?</p>
 </div>
 </div>
 <div class="section level3">
@@ -1212,8 +1211,8 @@ Cox models for all kinds of metafeatures.</p>
 <i class="fa fa-circle fa-stack-2x"></i>
 <i class="far fa-chart-bar fa-stack-1x fa-inverse"></i> </span>
 <strong>Interactive Q&amp;A:</strong></p>
-<p>Q8: Are spatial features important for predicting recurrence? Does it
-hold for all individuals?</p>
+<p>Q&amp;A 7: Are spatial features important for predicting recurrence?
+Does it hold for all individuals?</p>
 </div>
 </div>
 </div>
